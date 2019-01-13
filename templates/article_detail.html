@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+	<div class="card-header">
+		<h2>{{ object.title|capfirst }}</h2>
+	</div>
+	<div class="card-body">
+	  <blockquote class="blockquote mb-0">
+		<p>{{ object.body|linebreaks }}</p>
+		<footer class="blockquote-footer">by {{ object.author }} | <cite title="Source Title">{{ object.date }}</cite></footer>
+	  </blockquote>
+	  <br>
+	  {% if object.author == user %}
+	  <a href="{% url 'article_edit' article.pk %}"><button type="button" class="btn btn-outline-info btn-sm">Edit</button></a> | 
+	  <a href="{% url 'article_delete' article.pk %}"><button type="button" class="btn btn-outline-info btn-sm">Delete</button></a>
+	  {% endif %}
+	</div>
+</div>
+<br>
+<hr>
+<div class="card">
+	<div class="card-body">
+	{% for comment in article.comments.all %}
+		<p>
+			<span class="font-weight-bold">{{ comment.author }} &middot;</span>
+			{{ comment|linebreaks }}		
+		</p>
+	{% empty %}
+    <p>No comments here yet :(</p>
+	{% endfor %}		
+	</div>
+</div>
+<br>
+<a href="{% url 'add_comment_to_article' article.pk %}"><button class="btn btn-primary btn-sm">Add comment</button></a>
+<a href="{% url 'article_list' %}"><button type="button" class="btn btn-success btn-sm">Back to All Articles</button></a>
+{% endblock content %}
