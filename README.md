@@ -1,4 +1,4 @@
-To run locally make sure to follow below steps:
+## To run locally make sure to follow below steps:
 Install pipenv using pip
 pip install pipenv
 Navigate to main folder using command line and run command
